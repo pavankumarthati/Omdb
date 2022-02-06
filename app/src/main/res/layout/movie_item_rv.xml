@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/movie_item_height"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_margin="12dp"
+    app:cardCornerRadius="@dimen/movie_item_card_corner_radius_small"
+    app:cardBackgroundColor="?attr/colorSurface"
+    app:cardElevation="@dimen/movie_item_card_elevation">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/movie_poster"
+            android:layout_width="@dimen/movie_poster_width"
+            android:layout_height="0dp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:src="@drawable/dummy"
+            android:scaleType="fitXY"
+            />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline"
+            android:layout_width="1dp"
+            android:layout_height="0dp"
+            app:layout_constraintGuide_begin="@dimen/guideline_begin"
+            android:orientation="vertical"
+            />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/end_guideline"
+            android:layout_width="1dp"
+            android:layout_height="0dp"
+            app:layout_constraintGuide_percent=".90"
+            android:orientation="vertical"
+            />
+
+        <TextView
+            android:id="@+id/movie_name"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/movie_item_tv_margin_top"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toEndOf="@id/guideline"
+            app:layout_constraintEnd_toStartOf="@id/end_guideline"
+            tools:text="@string/sample_movie_name"
+            android:maxLines="2"
+            android:ellipsize="end"
+            style="@style/Home.Movie.TextStyle.Header"
+            />
+
+        <TextView
+            android:id="@+id/movie_director"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/movie_item_tv_margin_top"
+            app:layout_constraintTop_toBottomOf="@id/movie_name"
+            app:layout_constraintStart_toEndOf="@id/guideline"
+            app:layout_constraintEnd_toStartOf="@id/end_guideline"
+            tools:text="@string/sample_director_name"
+            style="@style/Home.Movie.TextStyle"
+            />
+
+        <TextView
+            android:id="@+id/movie_year"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/movie_item_tv_margin_top"
+            app:layout_constraintTop_toBottomOf="@id/movie_director"
+            app:layout_constraintStart_toEndOf="@id/guideline"
+            app:layout_constraintEnd_toStartOf="@id/end_guideline"
+            tools:text="@string/sample_movie_year"
+            style="@style/Home.Movie.TextStyle"
+            />
+
+        <TextView
+            android:id="@+id/movie_plot"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/movie_item_tv_margin_top"
+            app:layout_constraintTop_toBottomOf="@id/movie_year"
+            app:layout_constraintStart_toEndOf="@id/guideline"
+            app:layout_constraintEnd_toEndOf="parent"
+            tools:text="@string/sample_movie_plot"
+            android:maxLines="2"
+            android:ellipsize="end"
+            style="@style/Home.Movie.TextStyle"
+            />
+
+        <CheckBox
+            android:id="@+id/movie_favorite"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:gravity="center"
+            app:layout_constraintStart_toEndOf="@id/end_guideline"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:button="@drawable/sl_favorite_24dp"
+            />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.cardview.widget.CardView>
