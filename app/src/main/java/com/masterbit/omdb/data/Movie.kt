@@ -12,9 +12,53 @@ data class Movie(
      val actors: String? = null, val plot: String? = null,
      val language: String? = null, val country: String? = null,
      val posterUrl: String? = null, val rating: String? = null,
-     val imdbId: String, val favorite: Boolean = false,
-     @PrimaryKey(autoGenerate = true) var id: Int? = null,
-)
+     @PrimaryKey(autoGenerate = false)
+     val imdbId: String,
+     val favorite: Boolean = false,
+) {
+    override fun equals(other: Any?): Boolean {
+        return when (other) {
+            is Movie -> {
+                this.imdbId == other.imdbId
+            }
+            else -> false
+        }
+    }
+
+    override fun hashCode(): Int {
+        return imdbId.hashCode()
+    }
+}
+
+data class MovieItem(
+    val title: String, val releasedYear: String? = null,
+    val runtime: String, val genre: String? = null,
+    val director: String? = null, val writer: String? = null,
+    val actors: String? = null, val plot: String? = null,
+    val language: String? = null, val country: String? = null,
+    val posterUrl: String? = null, val rating: String? = null,
+    val imdbId: String
+) {
+    companion object {
+        fun fromMovie(movie: Movie): MovieItem {
+            return MovieItem(
+                title = movie.title,
+                releasedYear = movie.releasedYear,
+                runtime = movie.runtime,
+                genre = movie.genre,
+                director = movie.director,
+                writer = movie.writer,
+                actors = movie.actors,
+                plot = movie.plot,
+                language = movie.language,
+                country = movie.country,
+                posterUrl = movie.posterUrl,
+                rating = movie.rating,
+                imdbId = movie.imdbId
+            )
+        }
+    }
+}
 
 data class MovieSearchResultResponse(
                 @SerializedName(value = "Search")

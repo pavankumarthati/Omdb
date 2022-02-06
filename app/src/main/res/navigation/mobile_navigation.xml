@@ -13,8 +13,8 @@
 
     <fragment
         android:id="@+id/navigation_favorites"
-        android:name="com.masterbit.omdb.ui.dashboard.DashboardFragment"
+        android:name="com.masterbit.omdb.ui.dashboard.FavoriteFragment"
         android:label="@string/title_favorites"
-        tools:layout="@layout/fragment_dashboard" />
+        tools:layout="@layout/fragment_favorite" />
 
 </navigation>

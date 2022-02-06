@@ -2,20 +2,20 @@ package com.masterbit.omdb.ui.home
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
-import androidx.activity.viewModels
+import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import com.google.android.material.snackbar.Snackbar
+import com.jakewharton.rxbinding3.widget.textChanges
 import com.masterbit.omdb.OMDBApp
-import com.masterbit.omdb.R
 import com.masterbit.omdb.databinding.FragmentHomeBinding
 import com.masterbit.omdb.ui.moviedetail.MOVIE_ID_KEY
 import com.masterbit.omdb.ui.moviedetail.MovieDetailActivity
@@ -48,12 +48,21 @@ class HomeFragment : Fragment() {
             startActivity(Intent(this.requireContext(), MovieDetailActivity::class.java).apply {
                 putExtras(bundleOf(MOVIE_ID_KEY to it))
             })
-
         }, { movieId, isChecked ->
             homeViewModel.updateFavorite(movieId, isChecked)
         })
+
+        homeViewModel.trackSearchBtnEnable(binding.idEt.textChanges(), binding.titleEt.textChanges())
+        homeViewModel.searchBtnEnableLiveData.observe(this.viewLifecycleOwner) {
+            binding.searchBtn.isEnabled = it
+        }
+
         homeViewModel.movieResultsLiveData.observe(this.viewLifecycleOwner) {
             (binding.movieList.adapter as MovieListAdapter).submitList(it)
+        }
+
+        homeViewModel.errorLiveData.observe(this.viewLifecycleOwner) {
+            getSnackbar(it).show()
         }
 
         homeViewModel.progressLiveData.observe(this.viewLifecycleOwner) {
@@ -66,6 +75,17 @@ class HomeFragment : Fragment() {
         }
 
         return root
+    }
+
+
+    private fun getSnackbar(it: String): Snackbar {
+        val coordinatorLayout = binding.root
+        val snackbar = Snackbar.make(coordinatorLayout, it, Snackbar.LENGTH_SHORT)
+        val params: CoordinatorLayout.LayoutParams = snackbar.view.layoutParams as CoordinatorLayout.LayoutParams
+        params.anchorGravity = Gravity.TOP
+        params.gravity = Gravity.TOP
+        snackbar.view.layoutParams = params
+        return snackbar
     }
 
     override fun onDestroyView() {
