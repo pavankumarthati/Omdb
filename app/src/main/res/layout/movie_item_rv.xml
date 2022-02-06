@@ -86,6 +86,7 @@
             app:layout_constraintTop_toBottomOf="@id/movie_year"
             app:layout_constraintStart_toEndOf="@id/guideline"
             app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginEnd="10dp"
             tools:text="@string/sample_movie_plot"
             android:maxLines="2"
             android:ellipsize="end"
